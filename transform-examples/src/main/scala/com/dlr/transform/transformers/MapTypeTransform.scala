@@ -9,8 +9,8 @@ import org.apache.spark.sql.{Column, SparkSession}
   */
 object MapTypeTransform {
 
-  def transform(sc: SparkSession, sourcePath: String, destPath: String): Unit = {
-    val originalData = sc.read.schema(RawDataSchema.schema).parquet(sourcePath)
+  def transform(spark: SparkSession, sourcePath: String, destPath: String): Unit = {
+    val originalData = spark.read.schema(RawDataSchema.schema).parquet(sourcePath)
 
     // cleanFunc will simply take the MapType and return an edited Map
     // in this example it removes one member of the map before returning
@@ -20,7 +20,7 @@ object MapTypeTransform {
     val clean = udf(cleanFunc)
 
     // required for the $ column syntax
-    import sc.sqlContext.implicits._
+    import spark.sqlContext.implicits._
 
     // if you have data that doesn't need editing, you can separate it out
     // The data will need to be in a form that can be unioned with the edited data

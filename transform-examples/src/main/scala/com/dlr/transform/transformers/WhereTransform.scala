@@ -8,8 +8,8 @@ import org.apache.spark.sql.SparkSession
   */
 object WhereTransform {
 
-  def transform(sc: SparkSession, sourcePath: String, destPath: String): Unit = {
-    val originalData = sc.read.schema(RawDataSchema.schema).parquet(sourcePath)
+  def transform(spark: SparkSession, sourcePath: String, destPath: String): Unit = {
+    val originalData = spark.read.schema(RawDataSchema.schema).parquet(sourcePath)
 
     // select only the good data rows
     val allGoodData = originalData.where("myField is null")

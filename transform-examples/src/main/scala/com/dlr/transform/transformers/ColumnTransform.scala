@@ -8,10 +8,10 @@ import org.apache.spark.sql.{SparkSession}
   */
 object ColumnTransform {
 
-  def transform(sc: SparkSession, sourcePath: String, destPath: String): Unit = {
+  def transform(spark: SparkSession, sourcePath: String, destPath: String): Unit = {
 
     // read in the data with a new schema
-    val allGoodData = sc.read.schema(ColumnDropSchema.schema).parquet(sourcePath)
+    val allGoodData = spark.read.schema(ColumnDropSchema.schema).parquet(sourcePath)
 
     // write out the final edited data
     allGoodData.write.parquet(destPath)

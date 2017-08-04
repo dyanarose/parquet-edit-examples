@@ -10,8 +10,8 @@ import org.apache.spark.sql.{Column, Row, RowFactory, SparkSession}
   */
 object StructTypeTransform {
 
-  def transform(sc: SparkSession, sourcePath: String, destPath: String): Unit = {
-    val originalData = sc.read.schema(RawDataSchema.schema).parquet(sourcePath)
+  def transform(spark: SparkSession, sourcePath: String, destPath: String): Unit = {
+    val originalData = spark.read.schema(RawDataSchema.schema).parquet(sourcePath)
 
     // cleanFunc will take the struct as a Row and return a new Row with edited fields
     // note that the ordering and count of the fields must remain the same
@@ -28,7 +28,7 @@ object StructTypeTransform {
     )
 
     // required for the $ column syntax
-    import sc.sqlContext.implicits._
+    import spark.sqlContext.implicits._
 
     // if you have data that doesn't need editing, you can separate it out
     // The data will need to be in a form that can be unioned with the edited data
