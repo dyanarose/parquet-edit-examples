@@ -2,7 +2,6 @@ package com.dlr.transform.transformers
 
 import com.dlr.transform.schemas.RawDataSchema
 import org.apache.spark.sql.functions.udf
-import org.apache.spark.sql.types._
 import org.apache.spark.sql.{Column, SparkSession}
 
 /**
