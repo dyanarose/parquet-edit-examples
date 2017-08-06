@@ -13,8 +13,8 @@ object SimpleTransform {
     val originalData = spark.read.schema(RawDataSchema.schema).parquet(sourcePath)
 
     // take in a String, return a String
-    // cleanFunc will simply take the StringType field value and return the empty string in its place
-    // you can interrogate the value and return any StringType here
+    // cleanFunc will take the String field value and return the empty string in its place
+    // you can interrogate the value and return any String here
     def cleanFunc: (String => String) = { _ => "" }
 
     // register the func as a udf
